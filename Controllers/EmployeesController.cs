@@ -62,7 +62,7 @@ namespace CargoManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("create")]
-        public async Task<IActionResult> Create([FromBody] Employee employee)
+        public async Task<IActionResult> Create([FromForm] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -76,6 +76,7 @@ namespace CargoManagement.Controllers
         }
 
         // GET: Employees/Edit/5
+        [HttpPut("Edit/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,7 +97,7 @@ namespace CargoManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmpId,FirstName,LastName,CityId,PhoneNumber,Password")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [FromForm, Bind("EmpId,FirstName,LastName,CityId,PhoneNumber,Password")] Employee employee)
         {
             if (id != employee.EmpId)
             {
