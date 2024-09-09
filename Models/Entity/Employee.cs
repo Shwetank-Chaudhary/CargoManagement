@@ -6,7 +6,7 @@ namespace CargoManagement.Models.Entity
     public class Employee
     {
         [Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EmpId { get; set; }
 
         public required string FirstName { get; set; }

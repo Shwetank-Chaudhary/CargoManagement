@@ -6,6 +6,7 @@ namespace CargoManagement.Models.Entity
     public class CargoOrderDetails
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ShippmentId { get; set; }
         public int CargoOrderId { get; set; }
         [ForeignKey("CargoOrderId")]

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CargoManagement.Data;
 using CargoManagement.Models.Entity;
+using Microsoft.EntityFrameworkCore.Query;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CargoManagement.Controllers
 {
@@ -62,7 +64,7 @@ namespace CargoManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("create")]
-        public async Task<IActionResult> Create([FromBody] Employee employee)
+        public async Task<IActionResult> Create([FromForm] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +77,9 @@ namespace CargoManagement.Controllers
             return View(employee);
         }
 
-        // GET: Employees/Edit/5
+        // GET: Employees/Update/5
+        [HttpGet]
+        [Route("update/{id?}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,7 +90,7 @@ namespace CargoManagement.Controllers
             var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
-                return NotFound();
+                return NotFound("This Employee does not exists");
             }
             return View(employee);
         }
@@ -96,66 +100,58 @@ namespace CargoManagement.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmpId,FirstName,LastName,CityId,PhoneNumber,Password")] Employee employee)
+        [Route("update/{id?}")]
+        public  IActionResult Edit(int id, [FromForm] Employee employee)
         {
-            if (id != employee.EmpId)
-            {
+            var emp = _context.Employees.Find(id);
+            if (emp == null)
                 return NotFound();
-            }
+            if(employee.FirstName!=null)
+                emp.FirstName = employee.FirstName;
+            if (employee.LastName != null)
+                emp.LastName = employee.LastName;
+            if (employee.PhoneNumber != null)
+                emp.PhoneNumber = employee.PhoneNumber;
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(employee);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EmployeeExists(employee.EmpId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(employee);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Employees/Delete/5
+        [HttpGet]
+        [Route("delete/{id?}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmpId == id);
-            if (employee == null)
+            var emp = _context.Employees.Find(id);
+            if (emp == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            return View(employee);
+            _context.Employees.Remove(emp);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Employees/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        //[ValidateAntiForgeryToken]
+        [Route("delete")]
+        public IActionResult DeleteConfirmed([FromForm]int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee != null)
+            var emp=  _context.Employees.Find(id);
+            if (emp == null)
             {
-                _context.Employees.Remove(employee);
+                return BadRequest();
             }
 
-            await _context.SaveChangesAsync();
+            _context.Employees.Remove(emp);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 

@@ -6,6 +6,7 @@ namespace CargoManagement.Models.Entity
     public class Product
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductId { get; set; }
         public string ModelNumber { get; set; } = string.Empty;
         public string ModelName { get; set; } = string.Empty;

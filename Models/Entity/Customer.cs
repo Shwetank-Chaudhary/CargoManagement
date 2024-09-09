@@ -6,6 +6,7 @@ namespace CargoManagement.Models.Entity
     public class Customer
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CustomerId { get; set; }
 
         public string CustomerName { get; set; } = string.Empty;

@@ -6,6 +6,7 @@ namespace CargoManagement.Models.Entity
     public class CargoOrder
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int OrderId { get; set; }
 
         public int CustomerId { get; set; }
