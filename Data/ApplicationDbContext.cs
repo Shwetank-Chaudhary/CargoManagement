@@ -21,6 +21,7 @@ namespace CargoManagement.Data
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<CargoManagement.Models.Entity.Product> Product { get; set; } = default!;
 
         //public DbSet<Product> Products { get; set; }
 
