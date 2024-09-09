@@ -13,9 +13,9 @@ namespace CargoManagement.Models.Entity
         public string CustomerEmail { get; set; } = string.Empty;
         public string CustomerPhone { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
+        [ForeignKey("CityId")]
         public int CityId { get; set; }
 
-        [ForeignKey("CityId")]
         public City? City { get; set; }
     }
 }
