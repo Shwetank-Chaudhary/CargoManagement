@@ -4,16 +4,19 @@ using CargoManagement.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CargoManagement.Data.Migrations
+namespace CargoManagement.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240909054016_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,10 +28,7 @@ namespace CargoManagement.Data.Migrations
             modelBuilder.Entity("CargoManagement.Models.Entity.CargoOrder", b =>
                 {
                     b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -49,10 +49,7 @@ namespace CargoManagement.Data.Migrations
             modelBuilder.Entity("CargoManagement.Models.Entity.CargoOrderDetails", b =>
                 {
                     b.Property<int>("ShippmentId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShippmentId"));
 
                     b.Property<int>("CargoOrderId")
                         .HasColumnType("int");
@@ -82,10 +79,7 @@ namespace CargoManagement.Data.Migrations
             modelBuilder.Entity("CargoManagement.Models.Entity.City", b =>
                 {
                     b.Property<int>("CityId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CityId"));
 
                     b.Property<string>("CityName")
                         .IsRequired()
@@ -99,10 +93,7 @@ namespace CargoManagement.Data.Migrations
             modelBuilder.Entity("CargoManagement.Models.Entity.Customer", b =>
                 {
                     b.Property<int>("CustomerId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
                     b.Property<int>("CityId")
                         .HasColumnType("int");
@@ -133,10 +124,7 @@ namespace CargoManagement.Data.Migrations
             modelBuilder.Entity("CargoManagement.Models.Entity.Employee", b =>
                 {
                     b.Property<int>("EmpId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmpId"));
 
                     b.Property<string>("CityId")
                         .IsRequired()
@@ -169,10 +157,7 @@ namespace CargoManagement.Data.Migrations
             modelBuilder.Entity("CargoManagement.Models.Entity.Product", b =>
                 {
                     b.Property<int>("ProductId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
                     b.Property<string>("Description")
                         .IsRequired()

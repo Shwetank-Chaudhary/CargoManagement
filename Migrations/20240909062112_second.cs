@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace CargoManagement.Data.Migrations
+namespace CargoManagement.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class second : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
