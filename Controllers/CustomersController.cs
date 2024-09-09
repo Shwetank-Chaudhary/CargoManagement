@@ -130,39 +130,41 @@ namespace CargoManagement.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
+        [HttpGet]
+        [Route("delete/{id?}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            var customer = await _context.Customers
-                .Include(c => c.City)
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
+            var cust = _context.Customers.Find(id);
+            if (cust == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            return View(customer);
+            _context.Customers.Remove(cust);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-            }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //[Route("delete")]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var customer = await _context.Customers.FindAsync(id);
+        //    if (customer != null)
+        //    {
+        //        _context.Customers.Remove(customer);
+        //    }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool CustomerExists(int id)
         {
