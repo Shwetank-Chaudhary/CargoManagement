@@ -173,7 +173,7 @@ namespace CargoManagement.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("CargoManagement.Models.Entity.CargoOrder", b =>
