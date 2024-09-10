@@ -14,7 +14,8 @@ namespace CargoManagement.Models.Entity
         [DataType(DataType.EmailAddress)]
         public string CustomerEmail { get; set; } = string.Empty;
 
-        [Phone(ErrorMessage = "Not a valid phone number")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
         public string CustomerPhone { get; set; } = string.Empty;
         [DataType(DataType.Password)]
         public string Password { get; set; } = string.Empty;
