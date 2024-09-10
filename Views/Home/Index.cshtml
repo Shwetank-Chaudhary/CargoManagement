@@ -2,7 +2,33 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/Home.css" asp-append-version="true" />
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="/" class="navbar-brand">Home</a>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-content text-center">
+        <h1 class="display-4">Welcome to Our Website!</h1>
+        <p class="lead">Discover the power of ASP.NET Core and create amazing web applications.</p>
+        <a href="https://learn.microsoft.com/aspnet/core" class="btn btn-primary">Learn More</a>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; @DateTime.Now.Year - Your Company Name</p>
+    </footer>
+</body>
+</html>
