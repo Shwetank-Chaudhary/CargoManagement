@@ -19,8 +19,10 @@ namespace CargoManagement.Models.Entity
         [ForeignKey("CityId")]
 
 
-        public int PhoneNumber { get; set; }
+        [Phone(ErrorMessage = "Not a valid phone number")]
+        public string PhoneNumber { get; set; }
 
+        [DataType(DataType.Password)]
         public required string Password { get; set; }
     }
 }

@@ -17,7 +17,9 @@ namespace CargoManagement.Models.Entity
         public Product? Product { get; set; }
 
         public int Quantity { get; set; }
+        [DataType(DataType.Currency)]
         public double UnitCost { get; set; }
+        [DataType(DataType.Currency)]
         public double TotalCost
         {
             get => UnitCost * Quantity;
