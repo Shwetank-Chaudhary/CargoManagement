@@ -14,7 +14,9 @@ namespace CargoManagement.Models.Entity
 
         public Customer? Customer { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime OrderDate { get; set; }
+        [DataType(DataType.Date)]
         public DateTime ShipDate { get; set; }
     }
 }

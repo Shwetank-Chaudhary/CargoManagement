@@ -19,8 +19,11 @@ namespace CargoManagement.Models.Entity
         [ForeignKey("CityId")]
 
 
-        public int PhoneNumber { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        public string PhoneNumber { get; set; }
 
+        [DataType(DataType.Password)]
         public required string Password { get; set; }
     }
 }
