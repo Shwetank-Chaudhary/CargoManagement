@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CargoManagement.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("/api/[Controller]")]
     public class EmployeesController : Controller
@@ -31,7 +32,7 @@ namespace CargoManagement.Controllers
             return View(await _context.Employees.ToListAsync());
         }
 
-
+        [Authorize(Roles = "Employee, Admin")]
         [HttpGet]
         [Route("show/{id?}")]
         public async Task<IActionResult> Details(int? id)
@@ -50,7 +51,7 @@ namespace CargoManagement.Controllers
 
             return View(employee);
         }
-
+        
         // GET: Employees/Create
         [Route("create")]
         public IActionResult Create()
@@ -78,6 +79,7 @@ namespace CargoManagement.Controllers
         }
 
         // GET: Employees/Update/5
+        [Authorize(Roles = "Employee, Admin")]
         [HttpGet]
         [Route("update/{id?}")]
         public async Task<IActionResult> Edit(int? id)
@@ -98,6 +100,7 @@ namespace CargoManagement.Controllers
         // POST: Employees/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Employee, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("update/{id?}")]

@@ -11,9 +11,11 @@ namespace CargoManagement.Models.Entity
         public int CargoOrderId { get; set; }
         [ForeignKey("CargoOrderId")]
         public CargoOrder? CargoOrder { get; set; }
-        public int ProductId { get; set; }
-        [ForeignKey("ProductId")]
 
+        
+        public int ProductId { get; set; }
+
+        [ForeignKey("ProductId")]
         public Product? Product { get; set; }
 
         public int Quantity { get; set; }

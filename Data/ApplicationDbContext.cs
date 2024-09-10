@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CargoManagement.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
@@ -21,7 +21,6 @@ namespace CargoManagement.Data
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<CargoManagement.Models.Entity.Product> Product { get; set; } = default!;
 
         public DbSet<Product> Products { get; set; }
 

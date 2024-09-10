@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CargoManagement.Data;
 using CargoManagement.Models.Entity;
+using Microsoft.AspNetCore.Identity;
 
 namespace CargoManagement.Controllers
 {
@@ -16,10 +17,13 @@ namespace CargoManagement.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+
         public CargoOrdersController(ApplicationDbContext context)
         {
             _context = context;
         }
+
+        
 
         // GET: CargoOrders
         [HttpGet("showall")]

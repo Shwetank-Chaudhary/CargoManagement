@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CargoManagement.Data;
 using CargoManagement.Models.Entity;
+using Microsoft.AspNetCore.Identity;
 
 namespace CargoManagement.Controllers
 {
@@ -15,11 +16,18 @@ namespace CargoManagement.Controllers
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
+            
+        //private readonly RoleManager<IdentityRole> _roleManager;
 
         public CustomersController(ApplicationDbContext context)
         {
             _context = context;
         }
+
+        //public Controller(RoleManager<IdentityRole> roleManager)
+        //{
+        //    _roleManager = roleManager;
+        //}
 
         [HttpGet]
         [Route("showall")]
@@ -28,6 +36,29 @@ namespace CargoManagement.Controllers
             var applicationDbContext = _context.Customers.Include(c => c.City);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        struct Input {string email; string pass;}
+
+        //[HttpPost]
+        //[Route("showall")]
+        //public async Task<IActionResult> Details([FromForm] string email, string pass)
+        //{
+        //    //string email = Input.email;
+        //    if(email == null)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var customer = await _context.Customers
+        //        .Include(c => c.City)
+        //        .FirstOrDefaultAsync(m => m.CustomerEmail.Equals(email));
+        //    if (customer == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(customer);
+        //}
 
         [HttpGet]
         [Route("showall/{id?}")]
