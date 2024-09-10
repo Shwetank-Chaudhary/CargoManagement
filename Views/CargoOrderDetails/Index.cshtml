@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<link rel="stylesheet" type="text/css" href="~/css/cargoorderdetails.css" />
 <h1>Index</h1>
 
 <p>
@@ -31,29 +31,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CargoOrder.OrderId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Product.ProductId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UnitCost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ShippmentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ShippmentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ShippmentId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CargoOrder.OrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ShippmentId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ShippmentId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ShippmentId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
