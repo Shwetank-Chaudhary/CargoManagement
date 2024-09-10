@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CargoManagement.Data;
 using CargoManagement.Models.Entity;
+using Microsoft.AspNetCore.Identity;
 
 namespace CargoManagement.Controllers
 {
@@ -15,11 +16,18 @@ namespace CargoManagement.Controllers
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
+            
+        //private readonly RoleManager<IdentityRole> _roleManager;
 
         public CustomersController(ApplicationDbContext context)
         {
             _context = context;
         }
+
+        //public Controller(RoleManager<IdentityRole> roleManager)
+        //{
+        //    _roleManager = roleManager;
+        //}
 
         [HttpGet]
         [Route("showall")]
@@ -28,6 +36,29 @@ namespace CargoManagement.Controllers
             var applicationDbContext = _context.Customers.Include(c => c.City);
             return View(await applicationDbContext.ToListAsync());
         }
+
+        struct Input {string email; string pass;}
+
+        //[HttpPost]
+        //[Route("showall")]
+        //public async Task<IActionResult> Details([FromForm] string email, string pass)
+        //{
+        //    //string email = Input.email;
+        //    if(email == null)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    var customer = await _context.Customers
+        //        .Include(c => c.City)
+        //        .FirstOrDefaultAsync(m => m.CustomerEmail.Equals(email));
+        //    if (customer == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(customer);
+        //}
 
         [HttpGet]
         [Route("showall/{id?}")]
@@ -130,39 +161,41 @@ namespace CargoManagement.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
+        [HttpGet]
+        [Route("delete/{id?}")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            var customer = await _context.Customers
-                .Include(c => c.City)
-                .FirstOrDefaultAsync(m => m.CustomerId == id);
-            if (customer == null)
+            var cust = _context.Customers.Find(id);
+            if (cust == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
-            return View(customer);
+            _context.Customers.Remove(cust);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Customers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer != null)
-            {
-                _context.Customers.Remove(customer);
-            }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //[Route("delete")]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var customer = await _context.Customers.FindAsync(id);
+        //    if (customer != null)
+        //    {
+        //        _context.Customers.Remove(customer);
+        //    }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool CustomerExists(int id)
         {

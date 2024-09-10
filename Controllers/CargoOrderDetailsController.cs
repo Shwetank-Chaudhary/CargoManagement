@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CargoManagement.Data;
 using CargoManagement.Models.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CargoManagement.Controllers
 {
-
+    //[Authorize("Customer")]
     [ApiController]
     [Route("/api/[Controller]")]
     public class CargoOrderDetailsController : Controller
